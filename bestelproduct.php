@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -19,15 +20,19 @@ session_start();
     $bestelde_product = $_GET['id'];
     echo 'besteld = ' . $bestelde_product;
 
-    $_SESSION["winkelwagen"][] = $bestelde_product;
+    $_SESSION["winkelwagen"][$bestelde_product] = 1;
+
+    //header('Location:  productoverzicht.php');
 
 
-    header('Location:  productoverzicht.php');
 
 
     //print_r($_SESSION["winkelwagen"]);
 
-    ?>
+    echo '<pre>';
+    print_r($_SESSION);
+    echo '</pre>';
+?>
 
 
 </body>

@@ -1,63 +1,113 @@
 <?php
+
 session_start();
 
-if (isset($_GET['leegmaken']) && $_GET['leegmaken'] == 1) {
-    session_unset();
+if (!isset($_SESSION['winkelwagen'])) {
+    $_SESSION['winkelwagen'] = [];
 }
+
+
+$bestelde_product = $_GET['id'];
+
+echo $bestelde_product;
+
+
+if ( isset( $_SESSION['winkelwagen'][$bestelde_product] ) ) {
+    $_SESSION['winkelwagen'][$bestelde_product]++;    
+} else {
+    $_SESSION['winkelwagen'][$bestelde_product] = 1;
+}
+
+echo '<pre>de SESSION-array ziet er zo uit:';
+print_r($_SESSION);
+echo '</pre>';
+
+// session_destroy();
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
 <body>
+    dit is winkelwagen
 
-    <?php include 'header.php'; ?>
+<hr>
 
-    <h1>winkelwagen</h1>
+        <?php include 'productenarray.php'; ?>
 
-    <?php
-    // Echo session variables that were set on previous page
-    echo "winkelwageninhoud: ";
 
-    //print_r($_SESSION["winkelwagen"]);
+        <?php 
 
-    if (isset($_SESSION["winkelwagen"])) {
-        foreach ($_SESSION["winkelwagen"] as $product_in_winkelwagen) {
-            // echo "product: " . $product_in_winkelwagen;
+        $totaal = 0;
+        foreach ($producten as $product) {
+            // echo $product['titel'];
             // echo "<br>";
+            foreach ($_SESSION['winkelwagen'] as $product_id_in_winkelwagen => $aantal_in_winkelwagen) {
 
-            include "productenarray.php";
+                if ($product_id_in_winkelwagen == $product['id']) {
+                    $subtotaal = 0;
+                    echo $product_id_in_winkelwagen;
+                    echo " is zovaak besteld: ";    
+                    echo $aantal_in_winkelwagen;
+                    echo "<br>";
+                    echo " en deze heet " . $product['titel'];
+                    echo "<br>";
+                    echo " en deze kost " . $product['prijs'];
+                    echo "<br>";
 
-            foreach ($productarray as $product) {
-                if ($product_in_winkelwagen == $product['id']) {
-    ?>
-                    <a href="productdetail.php?id=<?php echo $product['id']; ?>" style="margin-bottom: 30px; display: block">
-                        <div class="product">
-                            product id = <?php echo $product['id']; ?>
-                            <br>productnaam: <?php echo $product['naam']; ?>
-                            <br>prijs:<?php echo $product['prijs']; ?>
-                        </div>
-                    </a>
+                    $subtotaal = $product['prijs'] * $aantal_in_winkelwagen;
+                    $totaal += $subtotaal;
+
+                    echo "subtotaal = &euro; " .  $subtotaal;
+                    echo "<br>";
+                }
+            }
+
+            echo "<br>";
+        }
+
+echo "totaal is " . $totaal;
+
+        ?>
 
 
 
-    <?php
+
+
+
+
+
+
+
+
+
+
+
+        <?php
+
+        exit();
+        foreach ($producten as $product) {
+            //echo $product['id'];
+            // alleen als het product ook in de session zit, wil ik die weergeven
+            foreach ($_SESSION['winkelwagen'] as $artikel_in_winkelwagen => $aantal) {
+                //echo 'artikel in winkelwagen: ' . $artikel_in_winkelwagen . "<br>";
+                //echo 'aantal daarvan is : ' . $aantal . "<br>";
+
+                if ($artikel_in_winkelwagen == $product['id']) {
+                    echo $product['id'];
+                    echo " zit in " . $aantal . " keer in winkelwagen <br>";
                 }
             }
         }
-    }
-    ?>
+        ?>
 
-    <br><br>
-    <a href="winkelwagen.php?leegmaken=1" style="border: 1px solid red; padding: 5px">winkelwagen leegmaken</a>
-    <br>
+
+
 
 </body>
-
 </html>

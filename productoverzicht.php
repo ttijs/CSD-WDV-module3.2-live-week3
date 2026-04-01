@@ -39,13 +39,12 @@ session_start();
         // echo '</div>';
         // echo '</a>';
 
-
     ?>
-
         <a href="productdetail.php?id=<?php echo $product['id']; ?>">
             <div class="product">
+                <br>id: <?php echo $product['id']; ?>
                 <br>productnaam: <?php echo $product['naam']; ?>
-                <br>prijs:<?php echo $product['prijs']; ?>
+                <br>&euro; prijs: <b><?php echo $product['prijs']; ?></b>
             </div>
         </a>
 
@@ -56,6 +55,7 @@ session_start();
 
 
     ?>
+
 
     <a href="winkelwagen.php">
         <div>Ga naar winkelwagen</div>
