@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -29,13 +33,17 @@
         foreach ($producten as $product) {
             //echo $product['id'];
         ?>
-            <a href="productdetail.php?nummer=<?php echo $product['id']; ?>">
-                <div class="product">
-                    <br />id: <?php echo $product['id']; ?>
-                    <br />productnaam: <?php echo $product['titel']; ?><br />
-                    &euro; prijs: <b><?php echo $product['prijs']; ?></b>
-                </div>
-            </a>
+            <div class="product">
+                <a href="productdetail.php?nummer=<?php echo $product['id']; ?>">
+                    <div>
+                        <br />id: <?php echo $product['id']; ?>
+                        <br />productnaam: <?php echo $product['titel']; ?><br />
+                        &euro; prijs: <b><?php echo $product['prijs']; ?></b>
+                    </div>
+                </a>
+                <br>
+                <a href="bestel.php?id=<?php echo $product['id']; ?>">bestel mij</a>
+            </div>
         <?php
         }
         ?>

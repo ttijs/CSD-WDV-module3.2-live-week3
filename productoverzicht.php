@@ -29,12 +29,12 @@ session_start();
     include "productenarray.php";
 
 
-    foreach ($productarray as $product) {
+    foreach ($producten as $product) {
 
         // echo '<a href="productdetail.php?id=' . $product['id'] . '">';
         // echo '<div class="product">';
         // echo $product['id'];
-        // echo "<br>productnaam: " . $product['naam'];
+        // echo "<br>producttitel: " . $product['titel'];
         // echo "<br>prijs:" . $product['prijs'];
         // echo '</div>';
         // echo '</a>';
@@ -43,7 +43,7 @@ session_start();
         <a href="productdetail.php?id=<?php echo $product['id']; ?>">
             <div class="product">
                 <br>id: <?php echo $product['id']; ?>
-                <br>productnaam: <?php echo $product['naam']; ?>
+                <br>producttitel: <?php echo $product['titel']; ?>
                 <br>&euro; prijs: <b><?php echo $product['prijs']; ?></b>
             </div>
         </a>

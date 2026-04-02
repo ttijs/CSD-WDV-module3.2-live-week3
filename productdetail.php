@@ -16,7 +16,7 @@
     <?php
 
       
-    $binnenkomende_id = $_GET['nummer'];
+    $binnenkomende_id = $_GET['id'];
 
     // echo '<p>';
     // echo 'binnendkomende id = ' . $binnenkomende_id;
