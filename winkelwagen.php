@@ -27,12 +27,13 @@ if (isset($_GET['delete'])) {
     unset($_SESSION['winkelwagen'][$delete_product]);
 }
 
+//if (!empty($_POST)) {
+if (isset($_POST['pas_aan'])) {
+    // echo "possttt: ";
+    // print_r($_POST); 
+    $_SESSION['winkelwagen'][$_POST['aan_te_passen_product_id']] = $_POST['aantal'];
+}
 
-echo '<pre>de SESSION-array ziet er zo uit:<br>';
-print_r($_SESSION);
-echo '</pre>';
-
-// session_destroy();
 
 ?>
 
@@ -76,11 +77,20 @@ echo '</pre>';
                 echo "<br>";
                 $subtotaal = $product['prijs'] * $aantal_in_winkelwagen;
                 echo "subtotaal = &euro; " .  $subtotaal;
-                echo "<br>";
+                echo "<br><br>";
 
     ?>
                 <a href="winkelwagen.php?delete=<?php echo $product_id_in_winkelwagen; ?>" style="background-color: red">Verwijderen</a>
                 <br>
+
+
+                aantal wijzigen:
+                <br>
+                <form action="winkelwagen.php" method="POST">
+                    <input type="hidden" name="aan_te_passen_product_id" value="<?php echo $product_id_in_winkelwagen; ?>">
+                    <input type="number" name="aantal" value="<?php echo $aantal_in_winkelwagen; ?>">
+                    <input type="submit" name="pas_aan" value="pas aan">
+                </form>
 
     <?php
 
